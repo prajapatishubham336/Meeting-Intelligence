@@ -14,11 +14,8 @@ It extracts important information such as decisions, action items, task owners, 
 
 ## 📸 Application Preview
 
-<!-- Add your UI screenshot below -->
+<img width="1345" height="638" alt="image" src="https://github.com/user-attachments/assets/b53987fa-e97d-472c-9b84-27b75e2e37dc" />
 
-![Meeting Intelligence Dashboard](YOUR_UI_IMAGE_URL_HERE)
-
-> Replace `YOUR_UI_IMAGE_URL_HERE` with your uploaded UI image URL after posting it on GitHub, LinkedIn, or another image-hosting platform.
 
 ---
 
