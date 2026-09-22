@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MeetingMind AI</title>
+
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">M</div>
+
+      <div>
+        <b>MeetingMind</b>
+        <span>AI Workspace</span>
+      </div>
+    </div>
+
+    <nav>
+      <a class="active" href="#">
+        <i data-lucide="layout-dashboard"></i>
+        Overview
+      </a>
+
+      <a href="#transcript">
+        <i data-lucide="file-text"></i>
+        Transcripts
+      </a>
+
+      <a href="#actions">
+        <i data-lucide="check-square"></i>
+        Action Items
+      </a>
+
+      <a href="#dependencies">
+        <i data-lucide="git-branch"></i>
+        Dependencies
+      </a>
+
+      <a href="#risks">
+        <i data-lucide="alert-triangle"></i>
+        Risk Monitor
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="avatar">S</div>
+
+      <div>
+        <b>Shubham</b>
+        <small>Project Manager</small>
+      </div>
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+      <div>
+        <p class="eyebrow">WORKSPACE / PROJECT ALPHA</p>
+
+        <h1>Meeting Intelligence</h1>
+
+        <p class="muted">
+          Turn conversations into clear execution plans.
+        </p>
+      </div>
+
+      <button class="ghost-btn" onclick="loadDemo()">
+        <i data-lucide="sparkles"></i>
+        Load Demo
+      </button>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div>
+        <div class="eyebrow">AI-POWERED WORKFLOW</div>
+
+        <h2>
+          From meeting notes to
+          <span>actionable intelligence.</span>
+        </h2>
+
+        <p>
+          Upload or paste a meeting transcript to extract decisions,
+          owners, deadlines, dependencies, and project risks.
+        </p>
+      </div>
+
+      <div class="hero-art">
+        <i data-lucide="brain-circuit"></i>
+      </div>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+    <section class="stats">
+
+      <div class="stat-card">
+        <div class="stat-icon purple">
+          <i data-lucide="check-circle"></i>
+        </div>
+
+        <div>
+          <span>Decisions</span>
+          <strong id="decisionCount">0</strong>
+          <small>Extracted insights</small>
+        </div>
+      </div>
+
+
+      <div class="stat-card">
+        <div class="stat-icon blue">
+          <i data-lucide="list-checks"></i>
+        </div>
+
+        <div>
+          <span>Action Items</span>
+          <strong id="actionCount">0</strong>
+          <small>Tasks identified</small>
+        </div>
+      </div>
+
+
+      <div class="stat-card">
+        <div class="stat-icon orange">
+          <i data-lucide="git-branch"></i>
+        </div>
+
+        <div>
+          <span>Dependencies</span>
+          <strong id="dependencyCount">0</strong>
+          <small>Task relationships</small>
+        </div>
+      </div>
+
+
+      <div class="stat-card">
+        <div class="stat-icon red">
+          <i data-lucide="shield-alert"></i>
+        </div>
+
+        <div>
+          <span>Risks</span>
+          <strong id="riskCount">0</strong>
+          <small>Potential blockers</small>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- TRANSCRIPT + SUMMARY -->
+    <section class="workspace-grid">
+
+      <div class="panel transcript-panel" id="transcript">
+
+        <div class="panel-head">
+
+          <div>
+            <h3>Meeting Transcript</h3>
+            <p class="muted">Paste your discussion below</p>
+          </div>
+
+          <span class="pill">Input</span>
+
+        </div>
+
+        <textarea
+          id="transcriptText"
+          placeholder="Paste meeting transcript here..."
+        ></textarea>
+
+        <div class="panel-foot">
+
+          <span class="muted">
+            Supports plain text transcripts
+          </span>
+
+          <button
+            class="primary-btn"
+            onclick="analyzeMeeting()"
+          >
+            <i data-lucide="zap"></i>
+            Analyze Meeting
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="panel summary-panel">
+
+        <div class="panel-head">
+
+          <div>
+            <h3>AI Summary</h3>
+            <p class="muted">Generated meeting overview</p>
+          </div>
+
+          <span class="pill green">Live</span>
+
+        </div>
+
+        <div id="summary" class="empty-state">
+          <i data-lucide="scan-text"></i>
+          <p>Your AI summary will appear here after analysis.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACTION ITEMS + RISKS -->
+    <section class="content-grid">
+
+      <div class="panel" id="actions">
+
+        <div class="panel-head">
+          <h3>Action Items</h3>
+          <span class="pill">Tasks</span>
+        </div>
+
+        <div id="actionsList" class="list empty">
+          No action items yet.
+        </div>
+
+      </div>
+
+
+      <div class="panel" id="risks">
+
+        <div class="panel-head">
+          <h3>Risk Monitor</h3>
+          <span class="pill danger">Watchlist</span>
+        </div>
+
+        <div id="risksList" class="list empty">
+          No risks detected yet.
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DEPENDENCY MAP -->
+    <section class="panel" id="dependencies">
+
+      <div class="panel-head">
+
+        <div>
+          <h3>Dependency Map</h3>
+          <p class="muted">Understand what blocks what.</p>
+        </div>
+
+        <span class="pill">Knowledge Graph</span>
+
+      </div>
+
+      <div id="dependencyMap" class="dependency-map empty">
+        No dependencies detected yet.
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<script src="/static/js/app.js"></script>
+
+<script>
+  lucide.createIcons();
+</script>
+
+</body>
+</html>
